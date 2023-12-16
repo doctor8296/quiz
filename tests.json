@@ -66,6 +66,7 @@
             },
             {
                 "questionText": "What is the correct syntax for referring to an external script called 'xxx.js'?",
+                "extraHTML": "<img src=\"./images/2.png\">",
                 "type": "one",
                 "answers": [
                     "<script href='xxx.js'>",

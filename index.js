@@ -379,6 +379,12 @@ class Quiz extends Eventor {
               },
             }),
           ]
+          .concat(currentQuestion.extraHTML ? dom('div', {
+            options: {
+              className: '',
+              innerHTML: currentQuestion.extraHTML 
+            }
+          }) : [])
           .concat(currentQuestion.image ? dom('div', {
             options: {
               className: 'question-image'
