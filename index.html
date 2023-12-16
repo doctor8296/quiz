@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    
+    <script src="https://yandex.ru/games/sdk/v2"></script>
+    <script>
+    YaGames
+        .init()
+        .then(ysdk => {
+            console.log('Yandex SDK initialized');
+            window.ysdk = ysdk;
+        });
+    </script>
+   
+
+    <title>Quick Quiz - Play</title>
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="game.css" />
+
+    <style>
+
+    @font-face {
+      font-family: 'Material Symbols Outlined';
+      font-style: normal;
+      font-weight: 100 700;
+      src: url(./fonts/icons.woff2) format('woff2');
+    }
+
+    .material {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+
+      <div id="hud" class="flex-center flex-column">
+        <button class="material" id="speaker">volume_up</button>
+      </div>
+
+      <div id="menu" class="frame justify-center flex-column hidden">
+        <h1 class="main-menu-title">МЕНЮ</h1>
+        <div id="tests">
+          <!-- <button class="btn" id="start">Начать</button> -->
+        </div>
+      </div>
+
+      <div id="end" class="frame flex-center flex-column hidden">
+        <h1 id="finalScore"></h1>
+        <h3 id="yourBestScore"></h3>
+        <button class="btn" id="start-again" onclick="window.location.reload()">Начать снова</button>
+      </div>
+
+      <div id="game" class="frame justify-center flex-column hidden">
+        <div id="hud">
+          <div class="hud-item">
+            <div id="progressBar">
+              <div id="progressBarFiller"></div>
+              <div class="progress-text-block hud-prefix">
+                <p id="progressText">0/0</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hud-item">
+            <p id="count-down-timer" class="inactive">
+              --:--
+            </p>
+          </div>
+
+          <div class="hud-item">
+            <p class="hud-prefix">
+              Счёт
+            </p>
+            <h1 class="hud-main-text" id="score">
+              0
+            </h1>
+          </div>
+        </div>
+        
+        <div id="questionBlock">
+          <h2 id="question">What is the answer to this questions?</h2>
+          <div class="choice-container">
+            <p class="choice-prefix">1</p>
+            <p class="choice-text" data-number="1">Choice 1</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">2</p>
+            <p class="choice-text" data-number="2">Choice 2</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">3</p>
+            <p class="choice-text" data-number="3">Choice 3</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">4</p>
+            <p class="choice-text" data-number="4">Choice 4</p>
+          </div>
+          <div class="hint-container">
+            <button class="hint-button btn" id="hint">Получить подсказку</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="screen.js"></script>
+  </body>
+</html>

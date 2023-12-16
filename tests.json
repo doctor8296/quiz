@@ -1,0 +1,93 @@
+[
+    {
+        "name": "Тест на знание JavaScript",
+        "randomizeQuestionsOrder": true,
+        "randomizeAnswersOrder": true,
+        "timeToSolveMS": 6e5,
+        "nextQuestionDelayMS": 1e3,
+        "questions": [
+            {
+                "questionText": "Inside which HTML element do we put the JavaScript?",
+                "type": "one",
+                "answers": [
+                    "<script>",
+                    "<javascript>",
+                    "<js>",
+                    "<scripting>"
+                ],
+                "correctAnswer": 0,
+                "rewardValue": 10
+            },
+            {
+                "questionText": "What is the correct syntax for referring to an external script called 'xxx.js'?",
+                "type": "one",
+                "answers": [
+                    "<script href='xxx.js'>",
+                    "<script name='xxx.js'>",
+                    "<script src='xxx.js'>",
+                    "<script file='xxx.js'>"
+                ],
+                "correctAnswer": 2,
+                "rewardValue": 10
+            },
+            {
+                "questionText": "How do you write 'Hello World' in an alert box?",
+                "type": "one",
+                "answers": [
+                    "msgBox('Hello World');",
+                    "alertBox('Hello World');",
+                    "msg('Hello World');",
+                    "alert('Hello World');"
+                ],
+                "correctAnswer": 3,
+                "rewardValue": 10
+            }
+        ]
+    },
+    {
+        "name": "Тест 2 на знание чего-то другого :3",
+        "randomizeQuestionsOrder": true,
+        "randomizeAnswersOrder": true,
+        "nextQuestionDelayMS": 1e3,
+        "questions": [
+            {
+                "questionText": "Inside which HTML element do we put the JavaScript?",
+                "extraHTML": "",
+                "image": "./images/1.jpeg",
+                "type": "one",
+                "answers": [
+                    "<script>",
+                    "<javascript>",
+                    "<js>",
+                    "<scripting>"
+                ],
+                "correctAnswer": 0,
+                "rewardValue": 10
+            },
+            {
+                "questionText": "What is the correct syntax for referring to an external script called 'xxx.js'?",
+                "type": "one",
+                "answers": [
+                    "<script href='xxx.js'>",
+                    "<script name='xxx.js'>",
+                    "<script src='xxx.js'>",
+                    "<script file='xxx.js'>"
+                ],
+                "correctAnswer": 2,
+                "rewardValue": 10
+            },
+            {
+                "questionText": "How do you write 'Hello World' in an alert box?",
+                "type": "one",
+                "answers": [
+                    "msgBox('Hello World');",
+                    "alertBox('Hello World');",
+                    "msg('Hello World');",
+                    "alert('Hello World');"
+                ],
+                "correctAnswer": 3,
+                "rewardValue": 10
+            }
+        ]
+    }
+]
