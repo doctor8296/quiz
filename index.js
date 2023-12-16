@@ -70,8 +70,37 @@ class AudioController {
   }
 }
 
-class Game {
+class Eventor {
   constructor() {
+    this._events = new Map();
+  }
+
+  on(name, callback) {
+    if (!(this._events.has(name))) {
+      this._events.set(name, new Set());
+    }
+    this._events.get(name).add(callback);
+  }
+
+  off(name, callback) {
+    if (this._events.has(name)) {
+      return this._events.get(name).delete(callback);
+    }
+    return false;
+  }
+
+  dispatch(name, ...args) {
+    if (this._events.has(name)) {
+      for (const callback of this._events.get(name).values()) {
+        callback(...args);
+      }
+    }
+  }
+}
+
+class Game extends Eventor {
+  constructor() {
+    super();
     this.quiz = null;
     this.audioController = null;
     this.TESTS = null
@@ -140,14 +169,13 @@ class Game {
         if (this.quiz && !this.quiz.ended) {
           throw new Error('Quiz already running');
         }
-        this.quiz = new Quiz(Object.assign(data, {
-          onEnd: (reason, data) => {
-            this.audioController.play('end');
-            this.selectFrame('end', data);
-          },
-          onSucces: () => this.audioController.play('success'),
-          onFail: () => this.audioController.play('fail')
-        }));
+        this.quiz = new Quiz(data);
+        this.quiz.on('end', (reason, data) => {
+          this.audioController.play('end');
+          this.selectFrame('end', data);
+        });
+        this.quiz.on('success', () => this.audioController.play('success'));
+        this.quiz.on('fail', () => this.audioController.play('fail'));
         this.quiz.start();
         break;
       }
@@ -189,7 +217,7 @@ class Game {
   }
 }
 
-class Quiz {
+class Quiz extends Eventor {
   constructor({
     questions=[],
     randomizeQuestionsOrder=false,
@@ -197,11 +225,9 @@ class Quiz {
     timeToSolveMS=-1,
     tickIntervalMS=1e3,
     nextQuestionDelayMS=-1,
-    wheel=true,
-    onEnd=null,
-    onSucces=null,
-    onFail=null
+    wheel=true
   }) {
+    super();
     this.randomizeQuestionsOrder = randomizeQuestionsOrder;
     this.randomizeAnswersOrder = randomizeAnswersOrder;
     this.questions = randomizeQuestionsOrder ? questions.sort(() => (Math.random() > .5) ? 1 : -1) : questions;
@@ -216,9 +242,6 @@ class Quiz {
     this.started = false;
     this.ended = false;
     this.acceptingAnswers = false;
-    this.onEnd = onEnd;
-    this.onSucces = onSucces;
-    this.onFail = onFail;
   }
 
   start() {
@@ -314,24 +337,18 @@ class Quiz {
   end(reason) {
     this.ended = true;
     clearInterval(this.intervalID);
-    if (typeof this.onEnd == 'function') {
-      this.onEnd(reason, {score: this.score} );
-    } 
+    this.dispatch('end', reason, {score: this.score} );
   }
 
   success() {
-    if (typeof this.onSucces == 'function') {
-      this.onSucces();
-    }
+    this.dispatch('success');
     const currentQuestion = this.questions[this.currentQuestionIndex];
     this.score += currentQuestion.rewardValue;
     this.updateScore();
   }
 
   fail() {
-    if (typeof this.onFail == 'function') {
-      this.onFail();
-    }
+    this.dispatch('fail');
   }
 
   renderQuestion(questionIndex) {
